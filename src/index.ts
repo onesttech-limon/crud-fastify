@@ -1,6 +1,7 @@
 import fastify from "fastify";
 import connectDB from "./config/db";
 import dataRoutes from "./routes/data.route";
+import { graphqlStart } from "./api";
 
 const app = fastify({
   logger: false,
@@ -14,6 +15,8 @@ app.get("/data", async (request, reply) => {
   return "Data";
 });
 app.register(dataRoutes);
+
+graphqlStart(app as any);
 app.listen(8080, (err, address) => {
   if (err) {
     console.error(err);
